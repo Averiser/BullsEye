@@ -18,12 +18,20 @@ class ViewController: UIViewController {
     @IBOutlet weak var scoreLabel: UILabel!
     var round = 0
     @IBOutlet weak var roundLabel: UILabel!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         currentValue = lroundf(slider.value)
+        startNewGame()
+    }
+    
+    @IBAction func startNewGame() {
+        score = 0
+        round = 0
         startNewRound()
     }
+    
     func updateLabels() {
         targetLabel.text = String(targetValue)
         scoreLabel.text = String(score)
@@ -69,13 +77,15 @@ class ViewController: UIViewController {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        let action = UIAlertAction(title: "Awesome", style: .default, handler: nil)
+        let action = UIAlertAction(title: "Awesome", style: .default, handler: {
+            action in
+                self.startNewRound()
+        })
         
         alert.addAction(action)
         
         present(alert, animated: true, completion: nil)
-        
-        startNewRound()
+
     }
 }
 
